@@ -1,0 +1,80 @@
+/*Style File: Where all custom style information is defined*/
+
+
+
+/*Header*/
+
+.skin-blue .main-header .logo {background-color: #283233}
+.skin-blue .main-header .logo:hover {background-color: #b3d0ec}
+
+.skin-blue .main-header .navbar {background-color: #283233}
+
+
+/*Sidebar*/
+
+.sidebar {
+  color: black;
+}
+
+.skin-blue .sidebar a {
+  color: white;
+}
+
+.DLButton{
+  background-color: #93bb51;
+}
+
+/*Body*/
+
+
+
+/*General*/
+
+.well {
+  background-color: #b3d0ec;  /*#283233*/
+}
+
+
+table.dataTable .odd { background-color:  #b3d0eb; }
+table.dataTable .even { background-color: inherit; }
+
+
+
+.info-box {min-height: 60px; border-radius: 30px;}
+.info-box-icon {height: 60px; line-height: 60px; width: 90px;}
+.info-box-content {padding-top: 10px; padding-bottom: 0px;}
+.bg-black {
+background-color: #b3d0ec!important;
+}
+
+.info-box-text {
+  text-transform: capitalize;
+}
+
+h3 {
+margin-left: 20px;
+}
+
+h4 {
+margin-left: 20px;
+}
+
+
+.content {background-color: white;}
+
+
+
+.skin-blue .main-sidebar {
+        background-color: #283233  ;
+      }
+.skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li:hover>a {
+        background-color: #b3d0ec;
+      }
+
+.skin-blue .wrapper {
+  background-color: white;
+}
+
+.content-wrapper {
+  background-color: white;
+}
