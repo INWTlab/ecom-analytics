@@ -1,4 +1,4 @@
-library("EcomAnalytics")
+library("ecomAnalytics")
 library("shiny")
 library("shinydashboard")
 library('DT')

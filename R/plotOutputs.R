@@ -11,6 +11,7 @@ trendDist <- function(ecomData, dateSpan, trendVar) {
 #' @rdname kpiFunctions
 timeDist <- function(ecomData, timeVar) {
   timeDistribution <- ecomData %>%  group_by(get(timeVar)) %>% summarise(Orders = length(get(timeVar)))
+  if (timeVar == 'Weekday') {levels(timeDistribution$`get(timeVar)`) <- seq(1:7)}
   ggplot(timeDistribution, aes(`get(timeVar)`, Orders)) + geom_col(fill = "#b3d0ec") + labs(x = timeVar, y = paste("Orders per", timeVar))  + scale_x_discrete(drop=FALSE)
 }
 
@@ -24,7 +25,8 @@ trendDistI <- function(ecomData, customerID, dateSpan, trendVarI) {
 
 #' @export
 #' @rdname kpiFunctions
-timeDistI <- function(ecomData, dateSpan, customerID, timeVarI) {
+timeDistI <- function(ecomData, customerID, timeVarI) {
   timeDistribution <- ecomData %>% filter(CustomerID == customerID) %>%  group_by(get(timeVarI)) %>% summarise(Orders = length(get(timeVarI)))
+  if (timeVarI == 'Weekday') {levels(timeDistribution$`get(timeVarI)`) <- seq(1:7)}
   ggplot(timeDistribution, aes(`get(timeVarI)`, Orders)) + geom_col(fill = "#b3d0ec") + labs(x = timeVarI, y = paste("Orders per", timeVarI)) + scale_x_discrete(drop=FALSE)
   }

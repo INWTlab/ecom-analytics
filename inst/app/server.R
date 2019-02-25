@@ -210,7 +210,7 @@ shinyServer(function(input, output, session) {
 
   getTrendI <- reactive({
     ecomData <- getData()
-    plot <- trendDistI(ecomData, customerID = input$customerId, dateSpan = input$trendSpanVarI, trendVarI = input$trendVarI)
+    plot <- trendDistI(ecomData, customerID = input$customerId,  dateSpan = input$trendSpanVarI, trendVarI = input$trendVarI)
     plot
   })
 
@@ -220,7 +220,7 @@ shinyServer(function(input, output, session) {
 
   getTimeAnalysisI <- reactive({
     ecomData <- getData()
-    plot <- timeDistI(ecomData, customerID = input$customerId, dateSpan = input$trendSpanVarI, timeVarI = input$timeVarI)
+    plot <- timeDistI(ecomData, customerID = input$customerId, timeVarI = input$timeVarI)
     plot
     })
 

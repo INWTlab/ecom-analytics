@@ -7,6 +7,13 @@
 
 #' @export
 #' @rdname uiElements
+box <- function(...){
+  shinydashboard::box(...)
+}
+
+
+#' @export
+#' @rdname uiElements
 panelTitle <- function(sideBarWidth) {
   dashboardHeader(
     title = "Ecommerce Analytics",

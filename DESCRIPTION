@@ -12,19 +12,17 @@ Encoding: UTF-8
 LazyData: true
 Imports:
  shiny (>= 1.0.3),
- shinydashboard (>= 0.6.1),
- ggplot2,
- lubridate,
- dplyr (>= 0.7.1)
+ dplyr (>= 0.7.1),
+ shinydashboard (>= 0.6.1)
 Suggests: 
  testthat (>= 1.0.2),
 RoxygenNote: 6.1.0
 LinkingTo: Rcpp
 Collate: 
+    'NAMESPACE.R'
     'startApplication.R'
     'uiElements.R'
     'dataPrep.R'
     'kpiCalculations.R'
     'tableOutputs.R'
     'plotOutputs.R'
-    'NAMESPACE.R'
