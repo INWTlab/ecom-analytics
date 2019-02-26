@@ -45,7 +45,7 @@ test_that("Time Plot Outputs for Individual Level Analytics are correct", {
   customerID <- '17293'
   dateSpan <- c('2011-01-05', '2011-07-08')
 
-  plot <- timeDistI(ecomData, dateSpan, customerID, timeVarI)
+  plot <- timeDistI(ecomData, customerID, timeVarI)
 
   expectTrue(!is.null(plot))
   expectTrue(length(plot$data) == 2)

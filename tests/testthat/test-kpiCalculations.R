@@ -14,6 +14,7 @@ test_that("Correct Revenue KPI Output for Shop Level Analytics", {
   revenue <- calcRevenueShop(ecomData)
 
   expectTrue(!is.null(revenue))
+  expectTrue(!grepl('\\.', revenue))
   expectTrue(revenue > 0)
 })
 
@@ -60,7 +61,7 @@ test_that("Correct Quantile KPI Output for Individual Level Analytics", {
   quantile <- calcQuantileI(ecomData, customerID)
 
   expectTrue(!is.null(quantile))
-  expectTrue((quantile > 0) & (quantile < 100))
+  expectTrue((quantile >= 0) & (quantile <= 100))
 })
 
 test_that("Correct Number of Products KPI Output for Individual Level Analytics", {

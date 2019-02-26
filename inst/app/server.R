@@ -43,9 +43,6 @@ shinyServer(function(input, output, session) {
 ### Shop Level Analytics ###
 
   getRevenueKpi <- reactive({
-    #revenue <- revenue_kpi_helper()
-    #TODO Baustelle: die Logik aus Server.R raushalten
-
     if(inputType() != "File" | !is.null(input$file1)){
       ecomData <-getData()
       revenue <- calcRevenueShop(ecomData)
