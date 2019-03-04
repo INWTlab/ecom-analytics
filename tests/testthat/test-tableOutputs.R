@@ -1,16 +1,16 @@
 library(testthat)
 
-context('testing table outputs')
+context("testing table outputs")
 
 expectTrue <- function(x) {
   testthat::expect_true(x)
 }
 
 test_that("Correct Table Outputs for Shop Level Analytics", {
-  ecomData <- read.table('../testdata/ecomData.csv', header = TRUE, sep = ',')
+  ecomData <- read.table("../testdata/ecomData.csv", header = TRUE, sep = ",")
   ecomData <- prepData(ecomData)
-  numProducts <- '5'
-  dateSpan <- c('2011-01-05', '2011-07-08')
+  numProducts <- "5"
+  dateSpan <- c("2011-01-05", "2011-07-08")
   prodTop <- calcTopProductsShop(ecomData, numProducts, dateSpan)
 
   expectTrue(length(prodTop) == 3)
@@ -35,11 +35,11 @@ test_that("Correct Empty Table Output is shown", {
 })
 
 test_that("Correct Table Outputs for Individual Level Analytics", {
-  ecomData <- read.table('../testdata/ecomData.csv', header = TRUE, sep = ',')
+  ecomData <- read.table("../testdata/ecomData.csv", header = TRUE, sep = ",")
   ecomData <- prepData(ecomData)
-  numProducts <- '5'
-  dateSpan <- c('2011-01-05', '2011-07-08')
-  customerID <- '17293'
+  numProducts <- "5"
+  dateSpan <- c("2011-01-05", "2011-07-08")
+  customerID <- "17293"
   prodTop <- calcTopProductsI(ecomData, customerID, numProducts, dateSpan)
 
   expectTrue(length(prodTop) == 3)
@@ -54,4 +54,3 @@ test_that("Correct Table Outputs for Individual Level Analytics", {
   expectTrue(all(prodLow$count > 0))
   expectTrue(any(prodLow != prodTop))
 })
-

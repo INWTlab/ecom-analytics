@@ -14,6 +14,7 @@
 }
 
 
+
 /*Sidebar*/
 .sidebar {
   color: black;
@@ -33,6 +34,7 @@
 .DLButton{
   background-color: #93bb51;
 }
+
 
 /*Body*/
 .info-box {
@@ -67,6 +69,15 @@ h4 {
   background-color: white;
 }
 
+.shiny-notification {
+             position:fixed;
+             top: calc(40%);;
+             left: calc(20%);;
+             right: calc(20%);;
+             font-size: 30px;
+             }
+
+
 
 /*General*/
 .well {
@@ -80,7 +91,4 @@ h4 {
 .content-wrapper {
   background-color: white;
 }
-
-/*table.dataTable .odd { background-color:  #b3d0eb; }
-table.dataTable .even { background-color: inherit; } */
 

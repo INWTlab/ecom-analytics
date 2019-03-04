@@ -1,15 +1,13 @@
 library(testthat)
 
-context('testing data prepration')
+context("testing data prepration")
 
 expectTrue <- function(x) {
   testthat::expect_true(x)
 }
 
 test_that("Correct Data Preparation Output", {
-  # browser()
-  # ecomData <- read.table('tests/testdata/ecomData.csv', header = TRUE, sep = ',')
-  ecomData <- read.table('../testdata/ecomData.csv', header = TRUE, sep = ',')
+  ecomData <- read.table("../testdata/ecomData.csv", header = TRUE, sep = ",")
 
   ecomData <- prepData(ecomData)
 
@@ -19,4 +17,3 @@ test_that("Correct Data Preparation Output", {
   expectTrue(is.factor(ecomData$Hour))
   expectTrue(is.Date(ecomData$DateComplete))
 })
-
