@@ -2,7 +2,6 @@
 
 This package shows an example of INWT's best practices for structuring shiny dashboards as r packages. 
 The here provided code backs up INWT's preffered structure and workflow, when developing shiny apps. 
-The article used to explain this structure and workflow can be found on the [blog of INWT Statistics](https://www.inwt-statistics.de/blog-artikel-lesen/best-practices-entwicklung-robuster-shiny-dashboards-als-r-pakete.html).
 
 ## Installation and Usage
 
