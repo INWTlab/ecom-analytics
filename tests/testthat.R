@@ -1,4 +1,4 @@
 library(testthat)
-library(EcomAnalytics)
+library(ecomAnalytics)
 
 test_check("ecomAnalytics")

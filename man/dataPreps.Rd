@@ -6,6 +6,9 @@
 \usage{
 prepData(ecomData)
 }
+\arguments{
+\item{ecomData}{data object}
+}
 \description{
 Data Preparation Functions
 }

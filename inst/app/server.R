@@ -1,29 +1,17 @@
-Sys.setlocale(category = "LC_ALL", locale = "en_US.UTF-8")
-options(shiny.maxRequestSize = 60 * 1024 ^ 2)
 library("shiny")
-library("DT")
 library("ecomAnalytics")
-library("ggplot2")
-library("lubridate")
-library("dplyr")
 
-sessionInfo()
-
-if (!interactive()) sink(stderr(), type = "output")
-shinyServer(function(input, output, session) {
-
-
-### Input Data ###
+function(input, output, session) {
+  ### Input Data ###
   inputType <- reactive({
     input$inputType
   })
 
   getExampleData <- reactive({
-    ecomData <- read.csv("../../data/ecomData.csv")
-    ecomData
+    ecomData()
   })
 
-  getRawData <- reactive({
+  getDataUser <- reactive({
     req(input$file1)
     ecomData <- read.csv(input$file1$datapath,
                          header = input$header,
@@ -31,24 +19,18 @@ shinyServer(function(input, output, session) {
     ecomData
   })
 
-  getData <- reactive({
-    if (inputType() == "Example Dataset") ecomData <- getExampleData()
-    else ecomData <- getRawData()
-    #data transformations
-    ecomData <- prepData(ecomData)
-    ecomData
+  getRawData <- reactive({
+    if (inputType() == "Example Dataset") getExampleData()
+    else getDataUser()
   })
 
+  getData <- reactive({
+    prepData(getRawData())
+  })
 
-### Shop Level Analytics ###
-
+  ### Shop Level Analytics ###
   getRevenueKpi <- reactive({
-    if (inputType() != "File" | !is.null(input$file1)){
-      ecomData <- getData()
-      revenue <- calcRevenueShop(ecomData)
-    } else {
-      revenue <- "0"
-    }
+    calcRevenueShop(getData())
   })
 
   output$revenueKpi <- renderPrint({
@@ -58,12 +40,7 @@ shinyServer(function(input, output, session) {
   })
 
   getCustomersKpi <- reactive({
-    if (inputType() != "File" | !is.null(input$file1)){
-      ecomData <- getData()
-      customers <- calcCustomersShop(ecomData)
-    } else {
-      customers <- "0"
-    }
+    calcCustomersShop(getData())
   })
 
   output$customersKpi <- renderPrint({
@@ -73,12 +50,7 @@ shinyServer(function(input, output, session) {
   })
 
   getNumProductsKpi <- reactive({
-    if (inputType() != "File" | !is.null(input$file1)){
-      ecomData <- getData()
-      numProducts <- calcNumProdsShop(ecomData)
-    } else {
-      numProducts <- "0"
-    }
+    calcNumProdsShop(getData())
   })
 
   output$numProductsKpi <- renderPrint({
@@ -88,14 +60,8 @@ shinyServer(function(input, output, session) {
   })
 
   getTopProducts <- reactive({
-    if (inputType() != "File" | !is.null(input$file1)){
-      ecomData <- getData()
-      top <- calcTopProductsShop(ecomData, numProducts = input$numProducts,
-                                 dateSpan = input$productsSpanVar)
-    } else {
-      top <- emptyProdTable()
-    }
-    top
+    calcTopProductsShop(getData(), numProducts = input$numProducts,
+                        dateSpan = input$productsSpanVar)
   })
 
   output$topProducts <- renderTable({
@@ -103,51 +69,35 @@ shinyServer(function(input, output, session) {
   })
 
   getLowProducts <- reactive({
-    if (inputType() != "File" | !is.null(input$file1)){
-      ecomData <- getData()
-      low <- calcLowProductsShop(ecomData, numProducts = input$numProducts,
-                                 dateSpan = input$productsSpanVar)
-    } else {
-      low <- emptyProdTable()
-    }
-    low
+    calcLowProductsShop(getData(), numProducts = input$numProducts,
+                        dateSpan = input$productsSpanVar)
   })
 
   output$lowProducts <- renderTable({
     getLowProducts()
   })
 
-  getTrend <- reactive({
-    ecomData <- getData()
-    plot <- trendDist(ecomData, dateSpan = input$trendSpanVar,
-                      trendVar = input$trendVar)
-    plot
-  })
-
   output$trend <- renderPlot({
-    getTrend()
+    trendDist(getData(), dateSpan = input$trendSpanVar,
+              trendVar = input$trendVar)
   })
-
-  getTimeAnalysis <- reactive({
-    ecomData <- getData()
-    plot <- timeDist(ecomData, timeVar = input$timeVar)
-    plot
-})
 
   output$time <- renderPlot({
-    getTimeAnalysis()
+    timeDist(getData(), timeVar = input$timeVar)
   })
 
+  ### Individual Level Analysis ###
+  outVar <- reactive({
+    ecomData <- getData()
+    sort(unique(as.character(ecomData$CustomerID)))
+  })
 
-### Individual Level Analysis ###
+  observe({
+    updateSelectInput(session, "customerId", choices = outVar()) #data()$customerID #c(output$outVar)
+  })
 
   getRevenueKpiI <- reactive({
-    if (inputType() != "File" | !is.null(input$file1)){
-      ecomData <- getData()
-      revenue <- calcRevenueI(ecomData, customerID = input$customerId)
-    } else {
-      revenue <- "0"
-    }
+    calcRevenueI(getData(), customerID = input$customerId)
   })
 
   output$revenueKpiI <- renderPrint({
@@ -157,12 +107,7 @@ shinyServer(function(input, output, session) {
   })
 
   getQuantileKpiI <- reactive({
-    if (inputType() != "File" | !is.null(input$file1)){
-      ecomData <- getData()
-     revenue <- calcQuantileI(ecomData, customerID = input$customerId)
-    } else {
-      "0"
-    }
+    calcQuantileI(getData(), customerID = input$customerId)
   })
 
   output$quantileKpiI <- renderPrint({
@@ -172,12 +117,7 @@ shinyServer(function(input, output, session) {
   })
 
   getNumProductsKpiI <- reactive({
-    if (inputType() != "File" | !is.null(input$file1)){
-      ecomData <- getData()
-      numProducts <- calcNumProdsI(ecomData, customerID = input$customerId)
-    } else {
-      numProducts <- "0"
-    }
+    calcNumProdsI(getData(), customerID = input$customerId)
   })
 
   output$numProductsKpiI <- renderPrint({
@@ -187,15 +127,9 @@ shinyServer(function(input, output, session) {
   })
 
   getTopProductsI <- reactive({
-    if (inputType() != "File" | !is.null(input$file1)){
-      ecomData <- getData()
-      top <- calcTopProductsI(ecomData, customerID = input$customerId,
-                              numProducts = input$numProductsI,
-                              dateSpan = input$productsSpanVarI)
-    } else {
-      top <- emptyProdTable()
-    }
-    top
+    calcTopProductsI(getData(), customerID = input$customerId,
+                     numProducts = input$numProductsI,
+                     dateSpan = input$productsSpanVarI)
   })
 
   output$topProductsI <- renderTable({
@@ -203,93 +137,47 @@ shinyServer(function(input, output, session) {
   })
 
   getLowProductsI <- reactive({
-    if (inputType() != "File" | !is.null(input$file1)){
-      ecomData <- getData()
-      low <- calcLowProductsI(ecomData, customerID = input$customerId,
-                              numProducts = input$numProducts,
-                              dateSpan = input$productsSpanVarI)
-    } else {
-      low <- emptyProdTable()
-    }
-    low
+    calcLowProductsI(getData(), customerID = input$customerId,
+                     numProducts = input$numProducts,
+                     dateSpan = input$productsSpanVarI)
   })
 
   output$lowProductsI <- renderTable({
     getLowProductsI()
   })
 
-  getTrendI <- reactive({
-    ecomData <- getData()
-    plot <- trendDistI(ecomData, customerID = input$customerId,
-                       dateSpan = input$trendSpanVarI,
-                       trendVarI = input$trendVarI)
-    plot
-  })
-
   output$trendI <- renderPlot({
-    getTrendI()
+    trendDistI(getData(), customerID = input$customerId,
+               dateSpan = input$trendSpanVarI,
+               trendVarI = input$trendVarI)
   })
-
-  getTimeAnalysisI <- reactive({
-    ecomData <- getData()
-    plot <- timeDistI(ecomData, customerID = input$customerId,
-                      timeVarI = input$timeVarI)
-    plot
-
-    })
 
   output$timeI <- renderPlot({
-    getTimeAnalysisI()
-
+    timeDistI(getData(), customerID = input$customerId,
+              timeVarI = input$timeVarI)
   })
-
 
   ### Raw Data ###
   output$rawDataOverview <- renderDataTable({
-    if (inputType() == "File" && is.null(input$file1)){
-      DT::datatable(data.frame(emptyTable = 0))
-    }
-    else {
-      ecomData <- getData()
-      DT::datatable(head(ecomData, n = 1000),
-                    options = list(scrollX = TRUE))
-    }
+    DT::datatable(getData(),
+                  options = list(scrollX = TRUE))
   })
 
-
- ### Observing Actions ###
-  observe({
-    if (inputType() == "File" && !is.null(input$file1))
-      updateTabsetPanel(session, "Reiter", selected = "tab3")
+  ### Observing Actions ###
+  observeEvent(getData(), {
+    updateTabsetPanel(session, "Reiter", selected = "tab3")
   })
-
-  observe({
-    if (inputType() == "Example Dataset")
-      updateTabsetPanel(session, "Reiter", selected = "tab3")
-  })
-
 
   observe({
     showNotification("Switch to 'Example Data' on the menu of the sidebar to explore the dashboard
                      with already available data or upload your own data.
                       The expected upload format can be seen in the tab 'Raw Data' after loading example data.",
-                     type = "warning", duration = 300)
+                     type = "warning", duration = 10)
 
     showNotification("Welcome to this sample dashboard!
                       Its main purpose is to offer a dynamic example for the associated blog article
                       'Best Practices: Entwicklung robuster Shiny Dashboards als R-Pakete'.",
-                      type = "warning", duration = 200)
+                     type = "warning", duration = 5)
   })
 
-  outVar <- reactive({
-    ecomData <- getData()
-    sort(unique(as.character(ecomData$CustomerID)))
-  })
-
-  observe({
-    if (input$Reiter == "tab2") {
-      updateSelectInput(session, "customerId", choices = outVar()) #data()$customerID #c(output$outVar)
-    }
-  })
-
-})
+}

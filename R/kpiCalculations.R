@@ -1,5 +1,6 @@
 #' Data Preparation Functions
-
+#' @param ecomData data object
+#' 
 #' @export
 #' @rdname kpiFunctions
 calcRevenueShop <- function(ecomData) {

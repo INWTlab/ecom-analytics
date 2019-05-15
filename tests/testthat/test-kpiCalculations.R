@@ -45,7 +45,7 @@ test_that("Correct Number of Products KPI Output for Shop Level Analytics", {
 test_that("Correct Revenue KPI Output for Individual Level Analytics", {
   ecomData <- read.table("../testdata/ecomData.csv", header = TRUE, sep = ",")
   ecomData <- prepData(ecomData)
-  customerID <- "17293"
+  customerID <- "17850"
 
   revenue <- calcRevenueI(ecomData, customerID)
 
@@ -56,7 +56,7 @@ test_that("Correct Revenue KPI Output for Individual Level Analytics", {
 test_that("Correct Quantile KPI Output for Individual Level Analytics", {
   ecomData <- read.table("../testdata/ecomData.csv", header = TRUE, sep = ",")
   ecomData <- prepData(ecomData)
-  customerID <- "17293"
+  customerID <- "17850"
 
   quantile <- calcQuantileI(ecomData, customerID)
 
@@ -67,7 +67,7 @@ test_that("Correct Quantile KPI Output for Individual Level Analytics", {
 test_that("Correct Number of Products KPI Output for Individual Level Analytics", {
   ecomData <- read.table("../testdata/ecomData.csv", header = TRUE, sep = ",")
   ecomData <- prepData(ecomData)
-  customerID <- "17293"
+  customerID <- "17850"
 
   numProducts <- calcNumProdsI(ecomData, customerID)
 

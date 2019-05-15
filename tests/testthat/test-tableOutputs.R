@@ -10,7 +10,7 @@ test_that("Correct Table Outputs for Shop Level Analytics", {
   ecomData <- read.table("../testdata/ecomData.csv", header = TRUE, sep = ",")
   ecomData <- prepData(ecomData)
   numProducts <- "5"
-  dateSpan <- c("2011-01-05", "2011-07-08")
+  dateSpan <- c("2010-01-05", "2015-07-08")
   prodTop <- calcTopProductsShop(ecomData, numProducts, dateSpan)
 
   expectTrue(length(prodTop) == 3)
@@ -38,8 +38,8 @@ test_that("Correct Table Outputs for Individual Level Analytics", {
   ecomData <- read.table("../testdata/ecomData.csv", header = TRUE, sep = ",")
   ecomData <- prepData(ecomData)
   numProducts <- "5"
-  dateSpan <- c("2011-01-05", "2011-07-08")
-  customerID <- "17293"
+  dateSpan <- c("2010-01-05", "2015-07-08")
+  customerID <- "17850"
   prodTop <- calcTopProductsI(ecomData, customerID, numProducts, dateSpan)
 
   expectTrue(length(prodTop) == 3)

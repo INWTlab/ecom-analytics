@@ -12,8 +12,5 @@ test_that("Correct Data Preparation Output", {
   ecomData <- prepData(ecomData)
 
   expectTrue(length(ecomData) == 14)
-  expectTrue(is.factor(ecomData$Month))
-  expectTrue(is.factor(ecomData$Weekday))
-  expectTrue(is.factor(ecomData$Hour))
-  expectTrue(is.Date(ecomData$DateComplete))
+  expectTrue(inherits(ecomData$DateComplete, "Date"))
 })
