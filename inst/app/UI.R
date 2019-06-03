@@ -46,7 +46,7 @@ dashboardPage(
           iLevelTrendAnalysis()
         )
       ),
-      tabPanel("Raw Data", value = "tab3", dataTableOutput("rawDataOverview"))
+      tabPanel("Raw Data", value = "tab3", DT::DTOutput("rawDataOverview"))
     ))
   )
 )

@@ -42,7 +42,9 @@ iLevelTrendAnalysis()
 \arguments{
 \item{...}{UI elements for the box}
 
-\item{sideBarWidth}{(numeric)}
+\item{sideBarWidth}{(numeric) width of sidebar}
+
+\item{buttonWidth}{button width}
 }
 \description{
 UI Elements

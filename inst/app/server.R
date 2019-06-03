@@ -158,7 +158,7 @@ function(input, output, session) {
   })
 
   ### Raw Data ###
-  output$rawDataOverview <- renderDataTable({
+  output$rawDataOverview <- DT::renderDT({
     DT::datatable(getData(),
                   options = list(scrollX = TRUE))
   })

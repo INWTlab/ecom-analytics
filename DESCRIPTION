@@ -1,7 +1,7 @@
 Package: ecomAnalytics
 Type: Package
 Title: Ecommerce Analytics Tool
-Version: 0.9.0
+Version: 0.9.1
 Author: INWT Statistics GmbH
 Authors@R: person("David", "Berscheid", email = "david.berscheid@inwt-statistics.de", role = c("aut", "cre"))
 Description: This package provides an example on how to structure shiny dashboards as a r package. It demonstrates advantages of a package structure on ecomerce data. 
@@ -11,6 +11,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
+ DT,
  ggplot2,
  shiny (>= 1.0.3),
  shinyjs,

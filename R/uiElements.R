@@ -1,7 +1,7 @@
 #' UI Elements
 #'
-#' @param buttonWidth
-#' @param sideBarWidth (numeric)
+#' @param buttonWidth button width
+#' @param sideBarWidth (numeric) width of sidebar
 #' @param ... UI elements for the box
 #'
 #' @export
