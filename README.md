@@ -1,7 +1,7 @@
 ## ecom-analytics: A Best Practice Example for Developing Shiny Dashboards as R Packages
 
 This package shows an example of INWT's best practices for structuring shiny dashboards as r packages. 
-The here provided code backs up INWT's preffered structure and workflow, when developing shiny apps. 
+The here provided code backs up INWT's preffered structure and workflow, when developing shiny apps. The accompanying blog article ["Best Practice: Development of Robust Shiny Dashboards as R Packages"](https://www.inwt-statistics.com/read-blog/best-practice-development-of-robust-shiny-dashboards-as-r-packages.html) provides extensive explanation on this matter. 
 
 ## Installation and Usage
 
