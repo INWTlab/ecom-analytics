@@ -21,7 +21,7 @@ library(ecomAnalytics)
 The shiny app can be started e.g. by running the following command:
 
 ```
-shiny::runApp('inst/app')
+shiny::runApp(system.file("app", package = "ecomAnalytics"))
 ```
 
 
